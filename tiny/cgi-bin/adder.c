@@ -8,6 +8,7 @@ int main(void)
 {
   char *buf, *p;
   char arg1[MAXLINE], arg2[MAXLINE], content[MAXLINE];
+  size_t len;
   int n1 = 0, n2 = 0;
 
   /* Extract the two arguments */
@@ -22,12 +23,18 @@ int main(void)
   }
 
   /* Make the response body */
-  sprintf(content, "QUERY_STRING=%s\r\n<p>", buf);
-  sprintf(content + strlen(content), "Welcome to add.com: ");
-  sprintf(content + strlen(content), "THE Internet addition portal.\r\n<p>");
-  sprintf(content + strlen(content), "The answer is: %d + %d = %d\r\n<p>",
-          n1, n2, n1 + n2);
-  sprintf(content + strlen(content), "Thanks for visiting!\r\n");
+  snprintf(content, sizeof(content), "QUERY_STRING=%s\r\n<p>", buf);
+  len = strlen(content);
+  snprintf(content + len, sizeof(content) - len, "Welcome to add.com: ");
+  len = strlen(content);
+  snprintf(content + len, sizeof(content) - len,
+           "THE Internet addition portal.\r\n<p>");
+  len = strlen(content);
+  snprintf(content + len, sizeof(content) - len,
+           "The answer is: %d + %d = %d\r\n<p>", n1, n2, n1 + n2);
+  len = strlen(content);
+  snprintf(content + len, sizeof(content) - len,
+           "Thanks for visiting!\r\n");
 
   /* Generate the HTTP response */
   printf("Content-type: text/html\r\n");
