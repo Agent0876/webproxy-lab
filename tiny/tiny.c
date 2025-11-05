@@ -17,8 +17,6 @@ void serve_dynamic(int fd, char *filename, char *cgiargs);
 void clienterror(int fd, char *cause, char *errnum, char *shortmsg,
                  char *longmsg);
 
-// 할 작업 한글로 주석 달기
-
 int main(int argc, char **argv)
 {
   // argc 명령행 인자 개수, argv 명령행 인자 배열
